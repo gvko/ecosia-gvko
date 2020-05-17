@@ -24,8 +24,6 @@ echo "=> Image build and tagged as: "
 echo "$IMAGE_AND_TAG"
 echo "$IMAGE_AND_SHA"
 
-#sed -i '' "s/IMAGE_PLACEHOLDER/$IMAGE_AND_SHA/" ../.ops/deployment.yml
-
 echo "=> Reset Docker build environment"
 eval $(minikube docker-env -u)
 
@@ -33,10 +31,8 @@ echo
 
 echo "===> Deploying for: $ENV"
 
-#sed -i '' "s/ENV_PLACEHOLDER/$ENV/" ../.ops/deployment.yml
-
 echo "=> Deploy the API backend"
-#kubectl apply -f ../.ops/deployment.yml
+# replace placeholders with values on the fly and pipe the output to be deployed
 sed "s/ENV_PLACEHOLDER/$ENV/g; s/IMAGE_PLACEHOLDER/$IMAGE_AND_SHA/g" ../.ops/deployment.yml | kubectl apply -f -
 
 echo "=> Deploy the internal service"
