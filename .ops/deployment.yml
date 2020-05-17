@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecosia-gvko-deployment
+  creationTimestamp: null
+  labels:
+    app: ecosia-gvko-api
+    env: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ecosia-gvko-api
+      env: dev
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ecosia-gvko-api
+        env: dev
+    spec:
+      containers:
+        - name: ecosia-gvko-api
+          image: ecosia-gvko-api:local-dev
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+              httpHeaders:
+                - name: Kubernetes-Probe
+                  value: Liveness
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+              httpHeaders:
+                - name: Kubernetes-Probe
+                  value: Readiness
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          env:
+            - name: LOG_LEVEL
+              value: 'info'
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+status: {}
