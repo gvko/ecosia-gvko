@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -z "$1" ] && ENV=dev || ENV=$1
+[ -z "$1" ] && ENV=prod || ENV=$1
 
 IMAGE=ecosia-gvko-api
 IMAGE_AND_TAG="$IMAGE:$ENV"
