@@ -27,5 +27,5 @@ app
 
 const hostname = process.env.HOSTNAME || 'localhost';
 app.listen(3000, () => {
-  app.log.info({}, `Service started ⚡ and listening on ${hostname}:3000`);
+  app.log.info({ env: process.env.NODE_ENV }, `Service started ⚡ and listening on ${hostname}:3000`);
 });

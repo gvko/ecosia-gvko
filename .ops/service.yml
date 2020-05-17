@@ -4,7 +4,6 @@ metadata:
   name: ecosia-gvko-service
   labels:
     app: ecosia-gvko-api
-    env: dev
 spec:
   ports:
     - protocol: "TCP"
@@ -12,5 +11,4 @@ spec:
       targetPort: 3000
   selector:
     app: ecosia-gvko-api
-    env: dev
   type: "NodePort"

@@ -5,13 +5,11 @@ metadata:
   creationTimestamp: null
   labels:
     app: ecosia-gvko-api
-    env: dev
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: ecosia-gvko-api
-      env: dev
   strategy:
     type: RollingUpdate
   template:
@@ -19,11 +17,11 @@ spec:
       creationTimestamp: null
       labels:
         app: ecosia-gvko-api
-        env: dev
+        env: ENV_PLACEHOLDER
     spec:
       containers:
         - name: ecosia-gvko-api
-          image: ecosia-gvko-api:local-dev
+          image: IMAGE_PLACEHOLDER
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -51,6 +49,8 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
           env:
+            - name: NODE_ENV
+              value: ENV_PLACEHOLDER
             - name: LOG_LEVEL
               value: 'info'
       dnsPolicy: ClusterFirst
